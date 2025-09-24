@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // version 1.0.0
+// this is for commit and push branch (updated nasdaq calculation)
 
 while (true)
 {
@@ -22,14 +23,10 @@ while (true)
     double pips = Convert.ToDouble(Console.ReadLine());
     Console.WriteLine();
 
-    Console.WriteLine("Contract size: ");
-    double contract_size = Convert.ToDouble(Console.ReadLine());
-    Console.WriteLine();
-
     switch (pair)
     {
         case "NASDAQ" or "nasdaq":
-            double position = nasdaq(risk_amount, pips, contract_size);
+            double position = nasdaq(risk_amount, pips);
             Console.Write($"POSITION: {position}");
             Console.ReadKey();
             break;
@@ -38,9 +35,11 @@ while (true)
 }
 Console.ReadKey();
 
-static double nasdaq(double risk_amount, double pips, double contract_size)
+static double nasdaq(double risk_amount, double pips)
 {
-    double position = (risk_amount / pips) * contract_size;
+    double contract_size = 10;
+    double new_pips = pips * 100;
+    double position = (risk_amount / new_pips) * contract_size;
     double lot_size = Math.Round(position, 2);
     return lot_size;
 }
